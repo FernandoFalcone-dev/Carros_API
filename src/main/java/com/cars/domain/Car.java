@@ -1,4 +1,4 @@
-package com.carros.domain;
+package com.cars.domain;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -8,11 +8,11 @@ import lombok.Data;
 
 @Entity
 @Data
-public class Carro {
+public class Car {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String nome;
-    private String tipo;
+    private String name;
+    private String type;
 
 }

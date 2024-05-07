@@ -11,6 +11,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -46,9 +47,8 @@ public class CarsController {
             @ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) }) })
     @GetMapping("/{id}")
     public ResponseEntity<CarDTO> getCarById(@PathVariable("id") Long id) {
-        Optional<CarDTO> car = carService.getCarById(id);
-        return car.map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+        CarDTO car = carService.getCarById(id);
+        return ResponseEntity.ok(car);
     }
 
     @Operation(
@@ -73,15 +73,11 @@ public class CarsController {
             @ApiResponse(responseCode = "400", content = { @Content(schema = @Schema()) }),
             @ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) }) })
     @PostMapping
+    @Secured({ "ROLE_ADMIN" })
     public ResponseEntity<CarDTO> post(@RequestBody Car car){
-        try {
             CarDTO c = carService.insert(car);
             URI location = getUri(car.getId());
             return ResponseEntity.created(location).build();
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
-            return ResponseEntity.badRequest().build();
-        }
     }
 
     private URI getUri(Long id) {
@@ -116,11 +112,7 @@ public class CarsController {
             @ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) }) })
     @DeleteMapping("/{id}")
     public ResponseEntity delete(@PathVariable("id") Long id) {
-        try {
             carService.delete(id);
             return ResponseEntity.ok().build();
-        } catch (RuntimeException e) {
-            return ResponseEntity.notFound().build();
-        }
     }
 }

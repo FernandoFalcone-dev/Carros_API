@@ -26,11 +26,11 @@ This project uses the following dependencies:
 ### Installation
 1. Clone the repository
     ```bash
-    git clone https://github.com/FernandoFalcone-dev/Carros_API.git
+    git clone https://github.com/FernandoFalcone-dev/Cars_API.git
     ```
 2. Navigate to the project directory
     ```bash
-    cd Carros_API
+    cd Cars_API
     ```
 3. Build the project
     ```bash
@@ -45,12 +45,12 @@ mvn spring-boot:run
 
 ## API Endpoints
 
-`GET /api/v1/carros`: Fetch all cars<br/>
-`GET /api/v1/carros/{id}`: Fetch a car by its ID<br/>
-`GET /api/v1/carros/tipo/{tipo}`: Fetch cars by type<br/>
-`POST /api/v1/carros`: Add a new car<br/>
-`PUT /api/v1/carros/{id}`: Update a car by its ID<br/>
-`DELETE /api/v1/carros/{id}`: Delete a car by its ID<br/>
+`GET /api/v1/cars`: Fetch all cars<br/>
+`GET /api/v1/cars/{id}`: Fetch a car by its ID<br/>
+`GET /api/v1/cars/tipo/{tipo}`: Fetch cars by type<br/>
+`POST /api/v1/cars`: Add a new car<br/>
+`PUT /api/v1/cars/{id}`: Update a car by its ID<br/>
+`DELETE /api/v1/cars/{id}`: Delete a car by its ID<br/>
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 

@@ -1,6 +1,7 @@
 package com.cars.domain;
 
 import com.cars.domain.dto.CarDTO;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -20,9 +21,10 @@ public class CarService {
                 .collect(Collectors.toList());
     }
 
-    public Optional<CarDTO> getCarById(Long id) {
-
-        return carRepository.findById(id).map(CarDTO::create);
+    public CarDTO getCarById(Long id) {
+        Optional<Car> car = carRepository.findById(id);
+        return car.map(CarDTO::create).orElseThrow(
+                () -> new EntityNotFoundException("Car with id " + id + " was not found."));
     }
 
     public List<CarDTO> getCarsByType(String type) {
@@ -32,8 +34,6 @@ public class CarService {
     }
 
     public CarDTO insert(Car car) {
-        Assert.isNull(car.getId(), "Unable to insert record.");
-
         return CarDTO.create(carRepository.save(car));
     }
 
@@ -51,11 +51,7 @@ public class CarService {
     }
 
     public void delete(Long id) {
-        if(carRepository.existsById(id)) {
-            carRepository.deleteById(id);
-        } else {
-            throw new RuntimeException("Unable to delete record");
-        }
+        carRepository.deleteById(id);
     }
 
 }

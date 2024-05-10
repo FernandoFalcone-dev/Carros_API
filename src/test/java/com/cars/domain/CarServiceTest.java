@@ -1,6 +1,9 @@
 package com.cars.domain;
 
 import com.cars.domain.dto.CarDTO;
+import com.cars.domain.entities.Car;
+import com.cars.domain.repositories.CarRepository;
+import com.cars.domain.services.CarService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,11 +52,11 @@ public class CarServiceTest {
 
         when(carRepository.findById(1L)).thenReturn(Optional.of(car));
 
-        Optional<CarDTO> carDto = carService.getCarById(1L);
+        CarDTO carDto = carService.getCarById(1L);
 
-        assertTrue(carDto.isPresent());
-        assertEquals(car.getName(), carDto.get().getName());
-        assertEquals(car.getType(), carDto.get().getType());
+        assertNotNull(carDto);
+        assertEquals(car.getName(), carDto.getName());
+        assertEquals(car.getType(), carDto.getType());
     }
 
     @Test

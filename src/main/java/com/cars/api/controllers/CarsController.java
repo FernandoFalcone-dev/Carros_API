@@ -1,7 +1,7 @@
-package com.cars.api.cars;
+package com.cars.api.controllers;
 
-import com.cars.domain.Car;
-import com.cars.domain.CarService;
+import com.cars.domain.entities.Car;
+import com.cars.domain.services.CarService;
 import com.cars.domain.dto.CarDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -17,7 +17,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
-import java.util.Optional;
 
 @Tag(name = "Cars", description = "Cars management APIs")
 @RestController
@@ -94,13 +93,9 @@ public class CarsController {
             @ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) }) })
     @PutMapping("/{id}")
     public ResponseEntity<CarDTO> put(@PathVariable("id") Long id, @RequestBody Car car) {
-        try {
             car.setId(id);
             CarDTO c = carService.update(car, id);
             return ResponseEntity.ok(c);
-        } catch (RuntimeException e) {
-            return ResponseEntity.notFound().build();
-        }
     }
 
     @Operation(

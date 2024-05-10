@@ -1,6 +1,8 @@
-package com.cars.domain;
+package com.cars.domain.services;
 
+import com.cars.domain.repositories.CarRepository;
 import com.cars.domain.dto.CarDTO;
+import com.cars.domain.entities.Car;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -51,6 +53,9 @@ public class CarService {
     }
 
     public void delete(Long id) {
+        if (!carRepository.existsById(id)) {
+            throw new RuntimeException("Car with id " + id + " does not exist");
+        }
         carRepository.deleteById(id);
     }
 

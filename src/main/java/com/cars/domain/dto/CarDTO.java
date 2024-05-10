@@ -1,6 +1,6 @@
 package com.cars.domain.dto;
 
-import com.cars.domain.Car;
+import com.cars.domain.entities.Car;
 import lombok.Data;
 import org.modelmapper.ModelMapper;
 
